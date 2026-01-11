@@ -1,0 +1,50 @@
+{
+  "name": "openvault",
+  "version": "0.1.0",
+  "description": "Standardized auth and credentials for reusable AI skills",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./registry": {
+      "import": "./dist/registry/index.js",
+      "types": "./dist/registry/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "registry"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "lint": "eslint src registry",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "credentials",
+    "secrets",
+    "vault",
+    "env",
+    "dotenv",
+    "ai-skills",
+    "claude-code",
+    "cursor"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/openvault"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.0.0"
+  }
+}

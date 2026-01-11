@@ -1,0 +1,537 @@
+{
+  "$schema": "./schema.json",
+  "version": "1.0.0",
+  "services": {
+    "twitter": {
+      "name": "Twitter / X",
+      "description": "Twitter/X social media platform API",
+      "website": "https://twitter.com",
+      "docs": "https://developer.twitter.com/en/docs",
+      "credentials": {
+        "TWITTER_BEARER_TOKEN": {
+          "description": "Bearer token for Twitter API v2 authentication",
+          "required": true,
+          "type": "bearer_token",
+          "setupUrl": "https://developer.twitter.com/en/portal/dashboard",
+          "setupSteps": [
+            "Go to developer.twitter.com and sign in",
+            "Create a project and app",
+            "Generate a Bearer Token from the app settings"
+          ]
+        },
+        "TWITTER_API_KEY": {
+          "description": "API Key (Consumer Key) for OAuth 1.0a user context",
+          "required": false,
+          "type": "api_key",
+          "setupUrl": "https://developer.twitter.com/en/portal/dashboard"
+        },
+        "TWITTER_API_SECRET": {
+          "description": "API Secret (Consumer Secret) for OAuth 1.0a user context",
+          "required": false,
+          "type": "api_secret",
+          "setupUrl": "https://developer.twitter.com/en/portal/dashboard"
+        },
+        "TWITTER_ACCESS_TOKEN": {
+          "description": "OAuth 1.0a access token for user-context requests",
+          "required": false,
+          "type": "access_token"
+        },
+        "TWITTER_ACCESS_TOKEN_SECRET": {
+          "description": "OAuth 1.0a access token secret",
+          "required": false,
+          "type": "access_token_secret"
+        }
+      },
+      "authMethods": ["bearer_token", "oauth1", "oauth2"]
+    },
+
+    "porkbun": {
+      "name": "Porkbun",
+      "description": "Domain registrar with affordable pricing and API access",
+      "website": "https://porkbun.com",
+      "docs": "https://porkbun.com/api/json/v3/documentation",
+      "credentials": {
+        "PORKBUN_API_KEY": {
+          "description": "API key for Porkbun domain operations",
+          "required": true,
+          "type": "api_key",
+          "pattern": "^pk1_[a-z0-9]+$",
+          "setupUrl": "https://porkbun.com/account/api",
+          "setupSteps": [
+            "Go to porkbun.com/account/api",
+            "Enable API access for your account",
+            "Generate a new API key"
+          ]
+        },
+        "PORKBUN_SECRET_KEY": {
+          "description": "Secret API key for Porkbun authentication",
+          "required": true,
+          "type": "api_secret",
+          "pattern": "^sk1_[a-z0-9]+$",
+          "setupUrl": "https://porkbun.com/account/api",
+          "setupSteps": [
+            "Generated alongside your API key",
+            "Store securely - cannot be retrieved after creation"
+          ]
+        }
+      },
+      "authMethods": ["api_key_pair"]
+    },
+
+    "google_calendar": {
+      "name": "Google Calendar",
+      "description": "Google Calendar API for reading and managing calendar events",
+      "website": "https://calendar.google.com",
+      "docs": "https://developers.google.com/calendar/api",
+      "credentials": {
+        "GOOGLE_CALENDAR_CLIENT_ID": {
+          "description": "OAuth 2.0 client ID from Google Cloud Console",
+          "required": true,
+          "type": "oauth_client_id",
+          "pattern": "\\.apps\\.googleusercontent\\.com$",
+          "setupUrl": "https://console.cloud.google.com/apis/credentials"
+        },
+        "GOOGLE_CALENDAR_CLIENT_SECRET": {
+          "description": "OAuth 2.0 client secret",
+          "required": true,
+          "type": "oauth_client_secret",
+          "setupUrl": "https://console.cloud.google.com/apis/credentials"
+        },
+        "GOOGLE_CALENDAR_REFRESH_TOKEN": {
+          "description": "OAuth 2.0 refresh token for offline access",
+          "required": true,
+          "type": "oauth_refresh_token"
+        }
+      },
+      "authMethods": ["oauth2"],
+      "scopes": [
+        "https://www.googleapis.com/auth/calendar.readonly",
+        "https://www.googleapis.com/auth/calendar"
+      ],
+      "setupSteps": [
+        "Create a Google Cloud Project",
+        "Enable the Google Calendar API",
+        "Configure OAuth consent screen",
+        "Create OAuth 2.0 credentials",
+        "Complete OAuth flow to get refresh token"
+      ]
+    },
+
+    "github": {
+      "name": "GitHub",
+      "description": "GitHub platform for code hosting and collaboration",
+      "website": "https://github.com",
+      "docs": "https://docs.github.com/en/rest",
+      "credentials": {
+        "GITHUB_TOKEN": {
+          "description": "Personal access token for GitHub API",
+          "required": true,
+          "type": "personal_access_token",
+          "pattern": "^(ghp_|github_pat_)[A-Za-z0-9_]+$",
+          "setupUrl": "https://github.com/settings/tokens",
+          "setupSteps": [
+            "Go to GitHub Settings > Developer settings > Personal access tokens",
+            "Generate a new token (classic or fine-grained)",
+            "Select required scopes for your use case"
+          ]
+        }
+      },
+      "authMethods": ["personal_access_token", "oauth2", "github_app"]
+    },
+
+    "openai": {
+      "name": "OpenAI",
+      "description": "OpenAI API for GPT models, DALL-E, and more",
+      "website": "https://openai.com",
+      "docs": "https://platform.openai.com/docs",
+      "credentials": {
+        "OPENAI_API_KEY": {
+          "description": "API key for OpenAI services",
+          "required": true,
+          "type": "api_key",
+          "pattern": "^sk-[A-Za-z0-9-_]+$",
+          "setupUrl": "https://platform.openai.com/api-keys",
+          "setupSteps": [
+            "Sign in to platform.openai.com",
+            "Go to API keys section",
+            "Create a new secret key"
+          ]
+        },
+        "OPENAI_ORG_ID": {
+          "description": "Organization ID for team billing attribution",
+          "required": false,
+          "type": "org_id",
+          "pattern": "^org-[A-Za-z0-9]+$"
+        }
+      },
+      "authMethods": ["api_key"]
+    },
+
+    "anthropic": {
+      "name": "Anthropic",
+      "description": "Anthropic API for Claude models",
+      "website": "https://anthropic.com",
+      "docs": "https://docs.anthropic.com",
+      "credentials": {
+        "ANTHROPIC_API_KEY": {
+          "description": "API key for Anthropic Claude API",
+          "required": true,
+          "type": "api_key",
+          "pattern": "^sk-ant-[A-Za-z0-9-_]+$",
+          "setupUrl": "https://console.anthropic.com/settings/keys",
+          "setupSteps": [
+            "Sign in to console.anthropic.com",
+            "Go to Settings > API keys",
+            "Create a new API key"
+          ]
+        }
+      },
+      "authMethods": ["api_key"]
+    },
+
+    "stripe": {
+      "name": "Stripe",
+      "description": "Payment processing platform",
+      "website": "https://stripe.com",
+      "docs": "https://stripe.com/docs/api",
+      "credentials": {
+        "STRIPE_SECRET_KEY": {
+          "description": "Secret key for Stripe API (server-side)",
+          "required": true,
+          "type": "api_secret",
+          "pattern": "^sk_(test|live)_[A-Za-z0-9]+$",
+          "setupUrl": "https://dashboard.stripe.com/apikeys",
+          "setupSteps": [
+            "Sign in to Stripe Dashboard",
+            "Go to Developers > API keys",
+            "Copy your secret key (use test key for development)"
+          ]
+        },
+        "STRIPE_PUBLISHABLE_KEY": {
+          "description": "Publishable key for client-side Stripe.js",
+          "required": false,
+          "type": "api_key",
+          "pattern": "^pk_(test|live)_[A-Za-z0-9]+$"
+        },
+        "STRIPE_WEBHOOK_SECRET": {
+          "description": "Webhook signing secret for verifying webhook events",
+          "required": false,
+          "type": "webhook_secret",
+          "pattern": "^whsec_[A-Za-z0-9]+$"
+        }
+      },
+      "authMethods": ["api_key"]
+    },
+
+    "sendgrid": {
+      "name": "SendGrid",
+      "description": "Email delivery and marketing platform",
+      "website": "https://sendgrid.com",
+      "docs": "https://docs.sendgrid.com",
+      "credentials": {
+        "SENDGRID_API_KEY": {
+          "description": "API key for SendGrid email services",
+          "required": true,
+          "type": "api_key",
+          "pattern": "^SG\\.[A-Za-z0-9-_]+\\.[A-Za-z0-9-_]+$",
+          "setupUrl": "https://app.sendgrid.com/settings/api_keys",
+          "setupSteps": [
+            "Sign in to SendGrid",
+            "Go to Settings > API Keys",
+            "Create a new API key with appropriate permissions"
+          ]
+        }
+      },
+      "authMethods": ["api_key"]
+    },
+
+    "slack": {
+      "name": "Slack",
+      "description": "Team communication and collaboration platform",
+      "website": "https://slack.com",
+      "docs": "https://api.slack.com",
+      "credentials": {
+        "SLACK_BOT_TOKEN": {
+          "description": "Bot token for Slack API access",
+          "required": true,
+          "type": "bot_token",
+          "pattern": "^xoxb-[0-9]+-[0-9]+-[A-Za-z0-9]+$",
+          "setupUrl": "https://api.slack.com/apps",
+          "setupSteps": [
+            "Create a Slack App at api.slack.com/apps",
+            "Add bot scopes under OAuth & Permissions",
+            "Install app to workspace",
+            "Copy the Bot User OAuth Token"
+          ]
+        },
+        "SLACK_SIGNING_SECRET": {
+          "description": "Signing secret for verifying Slack requests",
+          "required": false,
+          "type": "signing_secret"
+        },
+        "SLACK_APP_TOKEN": {
+          "description": "App-level token for Socket Mode",
+          "required": false,
+          "type": "app_token",
+          "pattern": "^xapp-[0-9]+-[A-Za-z0-9]+-[0-9]+-[A-Za-z0-9]+$"
+        }
+      },
+      "authMethods": ["bot_token", "oauth2"]
+    },
+
+    "aws": {
+      "name": "Amazon Web Services",
+      "description": "Cloud computing platform with extensive service offerings",
+      "website": "https://aws.amazon.com",
+      "docs": "https://docs.aws.amazon.com",
+      "credentials": {
+        "AWS_ACCESS_KEY_ID": {
+          "description": "Access key ID for AWS API authentication",
+          "required": true,
+          "type": "access_key_id",
+          "pattern": "^AKIA[0-9A-Z]{16}$",
+          "setupUrl": "https://console.aws.amazon.com/iam/home#/security_credentials",
+          "setupSteps": [
+            "Sign in to AWS Console",
+            "Go to IAM > Users > Security credentials",
+            "Create access key for CLI/API access"
+          ]
+        },
+        "AWS_SECRET_ACCESS_KEY": {
+          "description": "Secret access key paired with the access key ID",
+          "required": true,
+          "type": "secret_access_key"
+        },
+        "AWS_REGION": {
+          "description": "Default AWS region for API calls",
+          "required": false,
+          "type": "region",
+          "pattern": "^[a-z]{2}-[a-z]+-[0-9]$",
+          "default": "us-east-1"
+        }
+      },
+      "authMethods": ["access_key", "iam_role", "sso"]
+    },
+
+    "cloudflare": {
+      "name": "Cloudflare",
+      "description": "CDN, DNS, and web security services",
+      "website": "https://cloudflare.com",
+      "docs": "https://developers.cloudflare.com/api",
+      "credentials": {
+        "CLOUDFLARE_API_TOKEN": {
+          "description": "API token with scoped permissions",
+          "required": true,
+          "type": "api_token",
+          "setupUrl": "https://dash.cloudflare.com/profile/api-tokens",
+          "setupSteps": [
+            "Sign in to Cloudflare Dashboard",
+            "Go to My Profile > API Tokens",
+            "Create a custom token with required permissions"
+          ]
+        },
+        "CLOUDFLARE_ACCOUNT_ID": {
+          "description": "Account ID for account-scoped operations",
+          "required": false,
+          "type": "account_id"
+        },
+        "CLOUDFLARE_ZONE_ID": {
+          "description": "Zone ID for domain-specific operations",
+          "required": false,
+          "type": "zone_id"
+        }
+      },
+      "authMethods": ["api_token", "api_key"]
+    },
+
+    "notion": {
+      "name": "Notion",
+      "description": "All-in-one workspace for notes, docs, and collaboration",
+      "website": "https://notion.so",
+      "docs": "https://developers.notion.com",
+      "credentials": {
+        "NOTION_API_KEY": {
+          "description": "Integration token for Notion API",
+          "required": true,
+          "type": "api_key",
+          "pattern": "^(secret_|ntn_)[A-Za-z0-9]+$",
+          "setupUrl": "https://www.notion.so/my-integrations",
+          "setupSteps": [
+            "Go to notion.so/my-integrations",
+            "Create a new integration",
+            "Copy the Internal Integration Token",
+            "Share target pages/databases with your integration"
+          ]
+        }
+      },
+      "authMethods": ["api_key", "oauth2"]
+    },
+
+    "discord": {
+      "name": "Discord",
+      "description": "Community platform for messaging and voice chat",
+      "website": "https://discord.com",
+      "docs": "https://discord.com/developers/docs",
+      "credentials": {
+        "DISCORD_BOT_TOKEN": {
+          "description": "Bot token for Discord API access",
+          "required": true,
+          "type": "bot_token",
+          "setupUrl": "https://discord.com/developers/applications",
+          "setupSteps": [
+            "Create an application at discord.com/developers",
+            "Add a bot to your application",
+            "Copy the bot token",
+            "Invite bot to your server with required permissions"
+          ]
+        },
+        "DISCORD_CLIENT_ID": {
+          "description": "Application client ID for OAuth",
+          "required": false,
+          "type": "client_id"
+        },
+        "DISCORD_CLIENT_SECRET": {
+          "description": "Application client secret for OAuth",
+          "required": false,
+          "type": "client_secret"
+        }
+      },
+      "authMethods": ["bot_token", "oauth2"]
+    },
+
+    "linear": {
+      "name": "Linear",
+      "description": "Issue tracking and project management tool",
+      "website": "https://linear.app",
+      "docs": "https://developers.linear.app",
+      "credentials": {
+        "LINEAR_API_KEY": {
+          "description": "Personal API key for Linear GraphQL API",
+          "required": true,
+          "type": "api_key",
+          "pattern": "^lin_api_[A-Za-z0-9]+$",
+          "setupUrl": "https://linear.app/settings/api",
+          "setupSteps": [
+            "Go to Linear Settings > API",
+            "Create a new personal API key",
+            "Copy and store the key securely"
+          ]
+        }
+      },
+      "authMethods": ["api_key", "oauth2"]
+    },
+
+    "vercel": {
+      "name": "Vercel",
+      "description": "Cloud platform for frontend deployment",
+      "website": "https://vercel.com",
+      "docs": "https://vercel.com/docs/rest-api",
+      "credentials": {
+        "VERCEL_TOKEN": {
+          "description": "Personal access token for Vercel API",
+          "required": true,
+          "type": "personal_access_token",
+          "setupUrl": "https://vercel.com/account/tokens",
+          "setupSteps": [
+            "Sign in to Vercel",
+            "Go to Account Settings > Tokens",
+            "Create a new token with appropriate scope"
+          ]
+        },
+        "VERCEL_ORG_ID": {
+          "description": "Organization/team ID for team deployments",
+          "required": false,
+          "type": "org_id"
+        },
+        "VERCEL_PROJECT_ID": {
+          "description": "Project ID for project-specific operations",
+          "required": false,
+          "type": "project_id"
+        }
+      },
+      "authMethods": ["personal_access_token"]
+    },
+
+    "supabase": {
+      "name": "Supabase",
+      "description": "Open source Firebase alternative with Postgres",
+      "website": "https://supabase.com",
+      "docs": "https://supabase.com/docs",
+      "credentials": {
+        "SUPABASE_URL": {
+          "description": "Project URL for Supabase API",
+          "required": true,
+          "type": "url",
+          "pattern": "^https://[a-z0-9]+\\.supabase\\.co$",
+          "setupUrl": "https://app.supabase.com/project/_/settings/api"
+        },
+        "SUPABASE_ANON_KEY": {
+          "description": "Anonymous/public key for client-side access",
+          "required": true,
+          "type": "api_key",
+          "setupUrl": "https://app.supabase.com/project/_/settings/api"
+        },
+        "SUPABASE_SERVICE_ROLE_KEY": {
+          "description": "Service role key with full database access (server-side only)",
+          "required": false,
+          "type": "service_key"
+        }
+      },
+      "authMethods": ["api_key"]
+    },
+
+    "resend": {
+      "name": "Resend",
+      "description": "Developer-friendly email API",
+      "website": "https://resend.com",
+      "docs": "https://resend.com/docs",
+      "credentials": {
+        "RESEND_API_KEY": {
+          "description": "API key for Resend email service",
+          "required": true,
+          "type": "api_key",
+          "pattern": "^re_[A-Za-z0-9]+$",
+          "setupUrl": "https://resend.com/api-keys",
+          "setupSteps": [
+            "Sign in to Resend",
+            "Go to API Keys",
+            "Create a new API key"
+          ]
+        }
+      },
+      "authMethods": ["api_key"]
+    },
+
+    "twilio": {
+      "name": "Twilio",
+      "description": "Communication APIs for SMS, voice, and more",
+      "website": "https://twilio.com",
+      "docs": "https://www.twilio.com/docs",
+      "credentials": {
+        "TWILIO_ACCOUNT_SID": {
+          "description": "Account SID for Twilio API authentication",
+          "required": true,
+          "type": "account_id",
+          "pattern": "^AC[a-f0-9]{32}$",
+          "setupUrl": "https://console.twilio.com",
+          "setupSteps": [
+            "Sign in to Twilio Console",
+            "Find Account SID on the dashboard"
+          ]
+        },
+        "TWILIO_AUTH_TOKEN": {
+          "description": "Auth token paired with Account SID",
+          "required": true,
+          "type": "auth_token"
+        },
+        "TWILIO_PHONE_NUMBER": {
+          "description": "Twilio phone number for sending SMS/calls",
+          "required": false,
+          "type": "phone_number",
+          "pattern": "^\\+[0-9]+$"
+        }
+      },
+      "authMethods": ["api_key"]
+    }
+  }
+}

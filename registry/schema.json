@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://openvault.dev/schema/services.json",
+  "title": "OpenVault Service Registry",
+  "description": "Schema for defining service credentials in the OpenVault registry",
+  "type": "object",
+  "required": ["version", "services"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version of the registry schema"
+    },
+    "services": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/Service"
+      }
+    }
+  },
+  "definitions": {
+    "Service": {
+      "type": "object",
+      "required": ["name", "description", "credentials"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Human-readable name of the service"
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of what the service does"
+        },
+        "website": {
+          "type": "string",
+          "format": "uri",
+          "description": "Service homepage URL"
+        },
+        "docs": {
+          "type": "string",
+          "format": "uri",
+          "description": "API documentation URL"
+        },
+        "credentials": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Credential"
+          },
+          "minProperties": 1,
+          "description": "Map of credential key names to their definitions"
+        },
+        "authMethods": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "api_key",
+              "api_key_pair",
+              "bearer_token",
+              "bot_token",
+              "oauth1",
+              "oauth2",
+              "personal_access_token",
+              "access_key",
+              "iam_role",
+              "sso",
+              "api_token",
+              "github_app"
+            ]
+          },
+          "description": "Supported authentication methods"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "OAuth scopes used by the service"
+        },
+        "setupSteps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "High-level setup instructions"
+        }
+      }
+    },
+    "Credential": {
+      "type": "object",
+      "required": ["description", "required", "type"],
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "What this credential is used for"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether this credential is required for basic usage"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "api_key",
+            "api_secret",
+            "api_token",
+            "bearer_token",
+            "bot_token",
+            "app_token",
+            "personal_access_token",
+            "access_token",
+            "access_token_secret",
+            "access_key_id",
+            "secret_access_key",
+            "oauth_client_id",
+            "oauth_client_secret",
+            "oauth_refresh_token",
+            "client_id",
+            "client_secret",
+            "signing_secret",
+            "webhook_secret",
+            "account_id",
+            "org_id",
+            "project_id",
+            "zone_id",
+            "region",
+            "url",
+            "service_key",
+            "auth_token",
+            "phone_number"
+          ],
+          "description": "Type classification for this credential"
+        },
+        "pattern": {
+          "type": "string",
+          "description": "Regex pattern for validating credential format"
+        },
+        "setupUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL where user can create/find this credential"
+        },
+        "setupSteps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Step-by-step instructions to obtain this credential"
+        },
+        "default": {
+          "type": "string",
+          "description": "Default value if not provided (for non-secret config)"
+        }
+      }
+    }
+  }
+}
